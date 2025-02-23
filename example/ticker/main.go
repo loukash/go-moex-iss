@@ -19,8 +19,8 @@ func main() {
 	//iss.SetLogLevel(slog.LevelDebug)
 
 	// создание (поиск) тикера
-	//ticker, err := client.GetTicker("LKOH")
-	ticker, err := client.GetTicker("RTS-9.24")
+	ticker, err := client.GetTicker("SBER")
+	//ticker, err := client.GetTicker("RTS-9.24")
 	if err != nil {
 		slog.Error("main", "ошибка NewTicker", err.Error())
 	}
@@ -41,7 +41,7 @@ func main() {
 	slog.Info("ticker.Info", slog.Any("t_data", data))
 
 	// свечи
-	candles, err := ticker.Candles(iss.Interval_D1, "2024-08-01", "2025-01-01")
+	candles, err := ticker.Candles(iss.Interval_D1, "2025-01-01", "2025-02-01")
 	if err != nil {
 		slog.Error("main", "ошибка Candles", err.Error())
 		return

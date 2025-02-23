@@ -24,14 +24,15 @@ var (
 
 // IssRequest построитель запроса  iss-moex
 type IssRequest struct {
-	history    bool   // /history – данные итогов торгов.
-	engines    string // trade_engine_name
-	markets    string // market_name
-	boards     string //
-	securities bool   // securities
-	symbol     string // один символ (после securities) для запроса "candle"
-	target     string //
-	format     string // формат данных json xml csv
+	history     bool   // /history – данные итогов торгов.
+	engines     string // trade_engine_name
+	markets     string // market_name
+	boards      string //
+	boardgroups int    //
+	securities  bool   // securities
+	symbol      string // один символ (после securities) для запроса "candle"
+	target      string //
+	format      string // формат данных json xml csv
 	// параметры запроса
 	symbols         string // список инструментов для строки запроса
 	iss_only        string // iss.only=block1,block2 = ответ может содержать несколько блоков данных и этот
@@ -97,6 +98,9 @@ func (u *IssRequest) URL() string {
 	}
 	if u.boards != "" {
 		_url.Path = path.Join(_url.Path, "boards", u.boards)
+	}
+	if u.boardgroups != 0 {
+		_url.Path = path.Join(_url.Path, "boardgroups", strconv.Itoa(u.boardgroups))
 	}
 	if u.securities {
 		_url.Path = path.Join(_url.Path, "securities")
@@ -233,6 +237,12 @@ func (u *IssRequest) Markets(param string) *IssRequest {
 // Boards /boards/(boardid)
 func (u *IssRequest) Boards(param string) *IssRequest {
 	u.boards = param
+	return u
+}
+
+// boardgroups /boardgroups
+func (u *IssRequest) BoardGroups(param int) *IssRequest {
+	u.boardgroups = param
 	return u
 }
 

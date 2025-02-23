@@ -15,7 +15,7 @@ func main() {
 	if err != nil {
 		slog.Error("main", "NewClient", err.Error())
 	}
-	//iss.SetLogLevel(slog.LevelDebug)
+	iss.SetLogLevel(slog.LevelDebug)
 
 	// пример через создание сервиса
 	// service := client.NewCandlesService("stock", "shares", "tqbr", "SBER",
@@ -27,16 +27,18 @@ func main() {
 
 	// пример: получим интервал через парсинг строки
 	// M1 M10 H1 D1 W1 MN1 Q1
-	interval, err := iss.ParseInterval("D1")
+	interval, err := iss.ParseInterval("M1")
+	// iss.Interval_M1
 	if err != nil {
 		slog.Error("main", "ошибка ParseInterval", err.Error())
 		return
 	}
 
 	// по акциям
-	candles, err := client.GetStockCandles("SBER", interval, "2024-08-01", "2025-01-01")
+	//candles, err := client.GetStockCandles("SBER", interval, "2024-11-20", "2024-11-20")
 	// по фючерсам
-	//candles, err := client.GetFortsCandles("SiU4", iss.Interval_M1, "2024-08-09  23:00:00", "2025-01-01")
+	//candles, err := client.GetFortsCandles("SZU4", interval, "2024-11-20 11:00:00", "2024-11-21")
+	candles, err := client.GetFortsCandles("SRZ4", interval, "2024-11-20 12:00:00", "2024-11-21")
 	if err != nil {
 		slog.Error("main", "ошибка GetCandles", err.Error())
 		return

@@ -10,11 +10,11 @@ func main() {
 
 	// создание клиента
 	client, _ := iss.NewClient()
-	//iss.SetLogLevel(slog.LevelDebug)
+	iss.SetLogLevel(slog.LevelDebug)
 
 	// получить список акций
-	//Sec, err := client.GetStockInfo("MOEX")
-	Sec, err := client.GetStockInfo("")
+	Sec, err := client.GetStockInfo("MOEX")
+	//Sec, err := client.GetStockInfo("")
 	if err != nil {
 		slog.Error("main", "ошибка GetStockInfo", err.Error())
 	}

@@ -16,7 +16,7 @@ func main() {
 	iss.SetLogLevel(slog.LevelDebug)
 
 	// получить список опционов
-	Sec, err := client.GetOptionInfo("Si90000BI4")
+	Sec, err := client.GetOptionInfo("SP23750BC5")
 	//Sec, err := client.GetOptionInfo("")
 	if err != nil {
 		slog.Error("main", "ошибка GetOptionInfo", err.Error())
@@ -32,7 +32,7 @@ func main() {
 	}
 
 	// получить по опционам рыночные данные
-	SecData, _ := client.GetOptionData("Si90000BI4")
+	SecData, _ := client.GetOptionData("SP23750BC5")
 	//SecData, _ := client.GetOptionMarketData("")
 	slog.Info("GetOptionMarketData", slog.Int("всего len(Sec)", len(SecData)))
 	for row, sec := range SecData {

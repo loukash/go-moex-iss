@@ -10,6 +10,7 @@ go get github.com/Ruvad39/go-moex-iss
 ## api который реализован на текущий момент:
 
 ```go
+// акции
 // GetStockInfo получить параметры инструментов по акциям
 GetStockInfo(symbols string) ([]StockInfo, error)
 // GetStockMarketData получить рыночные данные по фондовому рынка
@@ -17,11 +18,17 @@ GetStockData(symbols string) ([]StockData, error)
 // GetStockCandles получить историю свечей по акциям
 GetStockCandles(symbols string, interval int, from, to string) (Candles, error)
 
-// GetBondsInfo получить параметры инструментов 
+// облигации
+// GetBondsInfo получить параметры по облигации
 GetBondsInfo(board string) ([]BondInfo, error)
-// TODO получить рыночные данные
-//GetBondsData(board string)
+// GetBondData получить рыночные данные по облигации
+GetBondsData(board string, symbols string) ([]BondData, error)
+// GetBondHistory получить исторические данные по одному символу
+GetBondHistory(symbols string, from, to string) ([]BondHistory, error)
+//GetBondsHistoryDate получить исторические данные по всем облигациям за заданную дату
+GetBondsHistoryDate(date string) ([]BondHistory, error)
 
+// фьючерсы
 // GetFortsInfo получить параметры инструментов по фьючерсам
 GetFortsInfo(symbols string) ([]FortsInfo, error)
 // GetFortsMarketData получить рыночные данные по фьючерсам
@@ -29,6 +36,7 @@ GetFortsData(symbols string) ([]FortsData, error)
 // GetFortsCandles получить историю свечей по фьючерсам
 GetFortsCandles(symbols string, interval int, from, to string) (Candles, error)
 
+// опционы
 // GetOptionInfo получить параметры инструментов по опционам
 GetOptionInfo(symbols string) ([]OptionInfo, error)
 // GetOptionData получить рыночные данные по опционам
@@ -38,6 +46,7 @@ GetOptionHistory(symbols string, from, to string) ([]OptionHistory, error)
 // GetOptionHistoryAllDate получить исторические данные по всем символам за заданную дату
 GetOptionHistoryAllDate(date string) ([]OptionHistory, error)
 
+// Ticker
 // GetTicker поиск тикера по коду
 GetTicker(symbol string) (*Ticker, error)
 // Info Информация по тикеру
@@ -47,7 +56,7 @@ Ticker.Data() (TickerData, error)
 // Candles исторические свечи по тикеру 
 Ticker.Candles(interval int, from, to string) (Candles, error) 
 // OrderBook получить стакан. 
-// Нужна аторизация
+// Нужна авторизация
 Ticker.OrderBook() (OrderBook, error)
 
 // algopack
@@ -206,7 +215,7 @@ fmt.Println(orderBook.String())
 
 ```go
 // обязательно нужна авторизация
-user, _ := "os.LookupEnv("MOEX_USER")
+user, _ := ""
 pwd, _ := ""
 
 client, err := iss.NewClient(iss.WithUser(user), iss.WithPwd(pwd))

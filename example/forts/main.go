@@ -13,11 +13,11 @@ func main() {
 	if err != nil {
 		slog.Error("main", "NewClient", err.Error())
 	}
-	//iss.SetLogLevel(slog.LevelDebug)
+	iss.SetLogLevel(slog.LevelDebug)
 
 	// получить список фьчерсов
 	Sec, err := client.GetFortsInfo("SiU4,RiU4")
-	//Sec, err := client.GetFortsInfo("")
+	//Sec, err := client.GetFortsInfo("MMU4")
 	if err != nil {
 		slog.Error("main", "ошибка GetFortsInfo", err.Error())
 	}
@@ -31,13 +31,13 @@ func main() {
 	//slog.Info("Sec", slog.Any("Sec", Sec))
 
 	// получить по фючерсам рыночные данные
-	SecData, _ := client.GetFortsData("CRU4,MXU4")
+	// SecData, _ := client.GetFortsData("CRU4,MXU4")
 
-	slog.Info("GetFortsData", slog.Int("всего len(Sec)", len(SecData)))
-	for row, sec := range SecData {
-		slog.Info(strconv.Itoa(row),
-			"sec", sec,
-		)
-	}
+	// slog.Info("GetFortsData", slog.Int("всего len(Sec)", len(SecData)))
+	// for row, sec := range SecData {
+	// 	slog.Info(strconv.Itoa(row),
+	// 		"sec", sec,
+	// 	)
+	// }
 
 }
