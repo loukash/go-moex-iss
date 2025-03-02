@@ -20,9 +20,9 @@ GetStockCandles(symbols string, interval int, from, to string) (Candles, error)
 
 // облигации
 // GetBondsInfo получить параметры по облигации
-GetBondsInfo(board string) ([]BondInfo, error)
+GetBondsInfo(board string, boardGroup ...int) ([]BondInfo, error)
 // GetBondData получить рыночные данные по облигации
-GetBondsData(board string, symbols string) ([]BondData, error)
+GetBondsData(board string, symbols string, boardGroup ...int) ([]BondData, error)
 // GetBondHistory получить исторические данные по одному символу
 GetBondHistory(symbols string, from, to string) ([]BondHistory, error)
 //GetBondsHistoryDate получить исторические данные по всем облигациям за заданную дату

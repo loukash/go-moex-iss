@@ -110,11 +110,16 @@ type BondHistory struct {
 	LASTTRADEDATE string  `json:"LASTTRADEDATE"` // Дата последней сделки
 }
 
-func (c *Client) GetBondsInfo(board string) ([]BondInfo, error) {
+// GetBondsInfo
+func (c *Client) GetBondsInfo(board string, boardGroup ...int) ([]BondInfo, error) {
 	var err error
 	const op = "GetBondsInfo"
+	issReq := NewIssRequest().Bonds().Boards(board).Json().MetaData(false).OnlySecurities()
 
-	url := NewIssRequest().Bonds().Boards(board).Json().MetaData(false).OnlySecurities().URL()
+	if len(boardGroup) > 0 {
+		issReq.BoardGroups(boardGroup[0])
+	}
+	url := issReq.URL()
 	r := &request{
 		method:  http.MethodGet,
 		fullURL: url,
@@ -137,11 +142,14 @@ func (c *Client) GetBondsInfo(board string) ([]BondInfo, error) {
 }
 
 // GetBondsData получить рыночные данные по облигации
-func (c *Client) GetBondsData(board string, symbols string) ([]BondData, error) {
+func (c *Client) GetBondsData(board string, symbols string, boardGroup ...int) ([]BondData, error) {
 	var err error
 	const op = "GetBondsData"
-
-	url := NewIssRequest().Bonds().Boards(board).Json().MetaData(false).OnlyMarketData().Symbols(symbols).URL()
+	issReq := NewIssRequest().Bonds().Boards(board).Json().MetaData(false).OnlyMarketData().Symbols(symbols)
+	if len(boardGroup) > 0 {
+		issReq.BoardGroups(boardGroup[0])
+	}
+	url := issReq.URL()
 	r := &request{
 		method:  http.MethodGet,
 		fullURL: url,

@@ -38,9 +38,13 @@ type Ticker struct {
 	symbol      string
 	client      *Client
 	issRequest  *IssRequest
-	SecID       string
-	ShortName   string  // Краткое наименование ценной бумаги (Серия срочного инструмента)
-	SecName     string  // Наименование финансового инструмента (срочного инструмента)
+	SecID       string  `json:"secid"`
+	ShortName   string  `json:"shortname"`       // Краткое наименование ценной бумаги (Серия срочного инструмента)
+	SecName     string  `json:"name"`            // Наименование финансового инструмента (срочного инструмента)
+	Type        string  `json:"type"`            //
+	Group       string  `json:"group"`           //
+	BoardID     string  `json:"primary_boardid"` //
+	IsTraded    int     `json:"is_traded"`       //
 	Decimals    int     // Точность, знаков после запятой
 	MinStep     float64 // Шаг цены
 	SecType     string  // Тип инструмента
